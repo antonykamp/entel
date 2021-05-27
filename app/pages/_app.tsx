@@ -9,7 +9,6 @@ import {
 } from "blitz"
 import { Suspense } from "react"
 import { ErrorBoundary } from "react-error-boundary"
-import Layout from "app/layouts/layout"
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
@@ -21,9 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
       resetKeys={[router.asPath]}
       onReset={useQueryErrorResetBoundary().reset}
     >
-      <Suspense fallback={<p>Loading</p>}>
-        <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
-      </Suspense>
+      <Suspense fallback={<p>Loading</p>}>{getLayout(<Component {...pageProps} />)}</Suspense>
     </ErrorBoundary>
   )
 }
